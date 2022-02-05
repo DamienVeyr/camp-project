@@ -1,0 +1,107 @@
+npm init
+
+npm install lite-server --save-dev
+npm install jquery@3.5.1 popper.js@1.16.1
+npm install bootstrap@4.5.2
+
+package.json
+"scripts": {
+    "lite": "lite-server",
+    "start": "npm run lite",
+    "test": "echo \"Error: no test specified\" && exit 1"
+ },
+
+ header
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
+
+after footer
+
+    <!-- jQuery must come first, then Popper.js, then the Bootstrap JavaScript plugins.-->
+    <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+create .gitignore file
+
+    node_modules
+
+git init
+git add .
+git commit -m " "
+
+github
+
+    create a new remote repository
+    find --> git remote add origin <your remote repository URL>
+    git push -u origin master
+    after just use git push -u origin master
+
+    cloning remote repository --> git clone <replace this with your remote repository URL>
+
+install icons fonts
+
+    npm install font-awesome@4.7.0
+
+    <!-- Additional CSS must be placed after Bootstrap CSS -->
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css" />
+
+install Bootstrap-social button icon fonts
+
+    npm install bootstrap-social@5.1.1
+    <link rel="stylesheet" href="node_modules/bootstrap-social/bootstrap-social.css" />
+
+Optional: Install Sass compiler (Use Scss for custom css)
+    
+    npm install --save-dev node-sass@4.14.1
+
+    "scripts": {
+    "lite": "lite-server",
+    "scss": "node-sass -o css/ css/",
+    "start": "npm run lite",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+
+  npm run scss --> Create new css
+
+Building & deployment
+
+    Install the onchange module to enable your project to to watch for changes to its files.
+    Install the parallelshell module to enable your project to run multiple NPM scripts in parallel.
+
+    npm install --save-dev onchange@7.0.0
+    npm install --save-dev -E parallelshell@3.0.1
+
+    "watch:scss": "onchange \"css/*.scss\" -- npm run scss",
+    "watch:all": "parallelshell \"npm run watch:scss\" \"npm run lite\""
+  },
+
+    "start": "npm run watch:all",
+
+Copy font-awesome fonts
+
+    npm install --save-dev copyfiles@2.2.0
+    "copyfonts": "copyfiles -f node_modules/font-awesome/fonts/* dist/fonts",
+
+Compress and minify images
+
+    npm install --save-dev imagemin-cli@5.1.0
+    "imagemin": "imagemin img/* -o dist/img",
+
+Concatenate, minify and uglify
+
+    npm install --save-dev usemin-cli@0.6.0
+     "usemin": "usemin contactus.html -d dist --htmlmin -o dist/contactus.html && usemin aboutus.html -d dist --htmlmin -o dist/aboutus.html && usemin index.html -d dist --htmlmin -o dist/index.html",
+
+Automate dist folder cleanup
+
+    npm install --save-dev rimraf@3.0.2
+    "clean": "rimraf dist",
+
+Build the distribution folder
+
+    "build": "npm run clean && npm run imagemin && npm run copyfonts && npm run usemin",
+    npm run build
